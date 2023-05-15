@@ -8,9 +8,9 @@
   border-color: #fa6400;
   cursor: pointer;
   margin-bottom: 30px;
-
 }
-.main{
+.main {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 20px;
 }

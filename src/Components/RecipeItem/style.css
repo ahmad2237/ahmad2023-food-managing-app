@@ -1,16 +1,18 @@
-.favorite-item {
+.recipe-item {
   border: 1px solid red;
   padding: 10;
   box-shadow: 0 0 10 0 rgba(250, 100, 0, 1);
   background-color: #ffffff;
 }
-.favorite-item p {
+.recipe-item p {
   color: #fa6400;
   font-weight: 700;
   font-size: 20;
   margin: 12px 0 12px 0px;
+  display: flex;
+  justify-content: center;
 }
-.favorite-item button {
+.recipe-item button {
   background-color: #fa6400;
   border: 1px solid transparent;
   border-radius: 0.25rem;
@@ -20,4 +22,11 @@
   font-weight: 600;
   line-height: 1.25rem;
   margin: 0;
+  padding: 6px 8px;
+}
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 15px;
 }

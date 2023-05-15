@@ -21,7 +21,6 @@ function HomePage() {
           ...state,
           fileteredValue: action.value,
         };
-
       default:
         return;
     }
@@ -35,6 +34,7 @@ function HomePage() {
   const [recipes, setRecipes] = useState([]);
 
   const [favorite, setFavorite] = useState([]);
+  const [deleteRecipe, setDeleteRecipe] = useState("");
 
   // console.log("favorite", favorite);
 
@@ -114,9 +114,8 @@ function HomePage() {
     localStorage.setItem("favorite", JSON.stringify(copyFavorite));
   };
   useEffect(() => {
-    const extractFavoritesfromLocalStorageOnPageLoad = JSON.parse(
-      localStorage.getItem("favorite")
-    );
+    const extractFavoritesfromLocalStorageOnPageLoad =
+      JSON.parse(localStorage.getItem("favorite")) || [];
     setFavorite(extractFavoritesfromLocalStorageOnPageLoad);
   }, []);
 
@@ -126,18 +125,28 @@ function HomePage() {
     );
   };
 
-  const RenderRecipes = useCallback(() => {
-    if (recipes && recipes.length > 0) {
-      recipes.map((item) => (
-        <RecipeItem
-          addToFavorites={() => addToFavorites(item)}
-          id={item.id}
-          image={item.image}
-          title={item.title}
-        />
-      ));
-    }
-  }, [recipes, addToFavorites]);
+  // const RenderRecipes = useCallback(() => {
+  //   if (recipes && recipes.length > 0) {
+  //     recipes.map((item) => (
+  //       <RecipeItem
+  //         addToFavorites={() => addToFavorites(item)}
+  //         id={item.id}
+  //         image={item.image}
+  //         title={item.title}
+  //       />
+  //     ));
+  //   }
+  // }, [recipes, addToFavorites]);
+
+  // const handleDelete = (id) => {
+  //   recipes.filter((item) => {
+  //     console.log(item.id);
+  //   });
+  const handleDelete = (id) => {
+    const filteredRecipe = recipes.filter((item) => item.id !== id);
+    // setBlogs(newBlogs);
+    setDeleteRecipe(filteredRecipe);
+  };
 
   return (
     <div className="homePage-main">
@@ -196,8 +205,8 @@ function HomePage() {
       {/* map through all the recipe items */}
       <div className="items">
         {/* {RenderRecipes()} */}
-
-        {useMemo(() =>
+        {useMemo(
+          () =>
             !loadingState && recipes && recipes.length > 0
               ? recipes.map((item) => (
                   <div>
@@ -206,6 +215,7 @@ function HomePage() {
                       id={item.id}
                       image={item.image}
                       title={item.title}
+                      handleDelete={handleDelete()}
                     />
                   </div>
                 ))
